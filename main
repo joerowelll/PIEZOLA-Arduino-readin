@@ -1,0 +1,41 @@
+#include "HX711.h"
+
+int channel = 128;
+int SS1 = 4; // SCK 1
+int SD1 = 5; // DT 1
+long int S1; // sensor values
+HX711 sensor1;
+
+
+void setup()
+{
+  Serial.begin(57600);
+  
+  delay(2000);
+
+  sensor1.begin(SD1, SS1);
+  sensor1.set_gain(channel);
+  sensor1.tare();
+  delay(1000);
+  
+ 
+}
+
+void sensorReport()
+{
+  if (sensor1.is_ready()) {
+    S1 = sensor1.get_value(samples); 
+    Serial.println(S1);
+    Serial.print("");
+    delay(10);
+  }
+
+}
+
+void loop()
+{  
+  sensorReport();
+
+ 
+
+}
